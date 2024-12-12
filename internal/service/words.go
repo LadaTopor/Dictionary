@@ -49,10 +49,10 @@ func (s *Service) CreateWords(c echo.Context) error {
 	//а почему не http.StatusCreated ? или похуй вообще какой статус, главное что зеленый?
 }
 
-// UpdateWords Обновляем слова в БД
+// UpdateWord Обновляем слова в БД
 //
 //localhost:8000/PUT
-func (s *Service) UpdateWords(c echo.Context) error {
+func (s *Service) UpdateWord(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		s.logger.Error(err)
@@ -75,7 +75,7 @@ func (s *Service) UpdateWords(c echo.Context) error {
 	return c.String(http.StatusOK, "Updated")
 }
 
-func (s *Service) DeleteWords(c echo.Context) error {
+func (s *Service) DeleteWord(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		s.logger.Error(err)
