@@ -46,4 +46,47 @@ func (s *Service) CreateWords(c echo.Context) error {
 	}
 
 	return c.String(http.StatusOK, "OK")
+	//а почему не http.StatusCreated ? или похуй вообще какой статус, главное что зеленый?
+}
+
+// UpdateWords Обновляем слова в БД
+//
+//localhost:8000/PUT
+func (s *Service) UpdateWords(c echo.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		s.logger.Error(err)
+		return c.JSON(s.NewError(InvalidParams))
+	}
+	var word Word
+	err = c.Bind(&word)
+	if err != nil {
+		s.logger.Error(err)
+		return c.JSON(s.NewError(InvalidParams))
+	}
+
+	repo := s.wordsRepo
+	err = repo.UpdateNewWord(strconv.Itoa(id), word.Title, word.Translation)
+	if err != nil {
+		s.logger.Error(err)
+		return c.JSON(s.NewError(err.Error()))
+	}
+
+	return c.String(http.StatusOK, "Updated")
+}
+
+func (s *Service) DeleteWords(c echo.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		s.logger.Error(err)
+		return c.JSON(s.NewError(InvalidParams))
+	}
+
+	repo := s.wordsRepo
+	err = repo.DeleteWordById(id)
+	if err != nil {
+		s.logger.Error(err)
+		return c.JSON(s.NewError(err.Error()))
+	}
+	return c.String(http.StatusOK, "Deleted")
 }
