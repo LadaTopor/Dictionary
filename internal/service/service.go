@@ -3,6 +3,7 @@ package service
 import (
 	"database/sql"
 	"dictionary/internal/reports"
+	"dictionary/internal/search"
 
 	"dictionary/internal/words"
 
@@ -20,6 +21,7 @@ type Service struct {
 
 	wordsRepo   *words.Repo
 	reportsRepo *reports.Repo
+	searchRepo  *search.Repo
 }
 
 func NewService(db *sql.DB, logger echo.Logger) *Service {
@@ -35,6 +37,7 @@ func NewService(db *sql.DB, logger echo.Logger) *Service {
 func (s *Service) initRepositories(db *sql.DB) {
 	s.wordsRepo = words.NewRepo(db)
 	s.reportsRepo = reports.NewRepo(db)
+	s.searchRepo = search.NewRepo(db)
 }
 
 // Пока можно не вдаваться в то что ниже

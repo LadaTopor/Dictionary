@@ -27,4 +27,6 @@ CREATE TABLE reports (
     Description VARCHAR(150),
     created_at timestamp,
     updated_at timestamp
-)
+);
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+-- CREATE INDEX X ON ru_en USING GIN (title gin_trgm_ops);
