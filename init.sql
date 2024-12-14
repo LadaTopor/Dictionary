@@ -1,10 +1,10 @@
 CREATE TABLE ru_en (
                        id SERIAL PRIMARY KEY,
-                       title VARCHAR(50) UNIQUE,
+                       Title VARCHAR(50) UNIQUE,
                        translation VARCHAR(255)
 );
 
-INSERT INTO ru_en (title, translation) VALUES
+INSERT INTO ru_en (Title, translation) VALUES
                                            ('Привет', 'Hello'),
                                            ('Мир', 'World'),
                                            ('Книга', 'Book'),
@@ -20,3 +20,13 @@ INSERT INTO ru_en (title, translation) VALUES
                                            ('Машина', 'Car'),
                                            ('Окно', 'Window'),
                                            ('Ручка', 'Pen');
+
+CREATE TABLE reports (
+    id SERIAL PRIMARY KEY,
+    Title VARCHAR(50),
+    Description VARCHAR(150),
+    created_at timestamp,
+    updated_at timestamp
+);
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+-- CREATE INDEX X ON ru_en USING GIN (title gin_trgm_ops);

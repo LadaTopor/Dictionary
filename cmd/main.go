@@ -26,6 +26,17 @@ func main() {
 	// прописываем пути
 	api.GET("/word/:id", svc.GetWordById)
 	api.POST("/words", svc.CreateWords)
+	api.PUT("/word/:id", svc.UpdateWord)
+	api.DELETE("/word/:id", svc.DeleteWord)
+
+	// пути для репортов
+	api.GET("/reports", svc.GetReportById)
+	api.POST("/report", svc.CreateReport)
+	api.PUT("/report/:id", svc.UpdateReportById)
+	api.DELETE("/report/:id", svc.DeleteReportById)
+
+	// путь для поиска
+	api.GET("/search/ru", svc.SearchByTitle)
 
 	// запускаем сервер, чтобы слушал 8000 порт
 	router.Logger.Fatal(router.Start(":8000"))
