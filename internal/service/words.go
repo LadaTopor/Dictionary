@@ -46,7 +46,6 @@ func (s *Service) CreateWords(c echo.Context) error {
 	}
 
 	return c.String(http.StatusOK, "OK")
-	//а почему не http.StatusCreated ? или похуй вообще какой статус, главное что зеленый?
 }
 
 // UpdateWord Обновляем слова в БД

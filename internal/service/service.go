@@ -18,13 +18,7 @@ type Service struct {
 	db     *sql.DB
 	logger echo.Logger
 
-	wordsRepo *words.Repo
-}
-
-type Service2 struct {
-	db     *sql.DB
-	logger echo.Logger
-
+	wordsRepo   *words.Repo
 	reportsRepo *reports.Repo
 }
 
@@ -38,20 +32,8 @@ func NewService(db *sql.DB, logger echo.Logger) *Service {
 	return svc
 }
 
-func NewService2(db *sql.DB, logger echo.Logger) *Service2 {
-	svc := &Service2{
-		db:     db,
-		logger: logger,
-	}
-	svc.initRepositories(db)
-
-	return svc
-}
-
 func (s *Service) initRepositories(db *sql.DB) {
 	s.wordsRepo = words.NewRepo(db)
-}
-func (s *Service2) initRepositories(db *sql.DB) {
 	s.reportsRepo = reports.NewRepo(db)
 }
 
@@ -67,9 +49,5 @@ func (r *Response) Error() string {
 }
 
 func (s *Service) NewError(err string) (int, *Response) {
-	return 400, &Response{ErrorMessage: err}
-}
-
-func (s *Service2) NewError(err string) (int, *Response) {
 	return 400, &Response{ErrorMessage: err}
 }
