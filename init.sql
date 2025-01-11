@@ -20,3 +20,14 @@ INSERT INTO ru_en (title, translation) VALUES
                                            ('Машина', 'Car'),
                                            ('Окно', 'Window'),
                                            ('Ручка', 'Pen');
+
+CREATE TABLE reports (
+                       id SERIAL PRIMARY KEY,
+                       title VARCHAR(50),
+                       description TEXT,
+                       created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+                       updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+
+);
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm;

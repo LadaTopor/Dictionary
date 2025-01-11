@@ -18,7 +18,7 @@ func NewLogger(writeToFile bool) *log.Logger {
 		logger.SetOutput(logFile)
 	}
 
-	logger.SetLevel(log.INFO) // Уровень логирования: DEBUG, INFO, WARN, ERROR
+	logger.SetLevel(log.INFO) // Будут выводиться все сообщения уровня: INFO, WARN, ERROR
 	logger.SetHeader("${time_rfc3339} ${level} ${short_file}:${line} ${message}")
 
 	// Пример логирования
