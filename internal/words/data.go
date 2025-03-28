@@ -31,3 +31,38 @@ func (r *Repo) CreateNewWords(word, translate string) error {
 
 	return nil
 }
+
+func (r *Repo) UpdateWordById(id int, newTitle, newTranslation string) error {
+	_, err := r.db.Exec(`UPDATE ru_en SET title = $1, translation = $2 WHERE id = $3`, newTitle, newTranslation, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *Repo) DeleteWordById(id int) error {
+	_, err := r.db.Exec(`DELETE FROM ru_en WHERE id = $1`, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *Repo) SearchWords(query string) ([]Word, error) {
+	rows, err := r.db.Query(`SELECT id, title, translation FROM ru_en WHERE $1 <% title ORDER BY title <-> $1 LIMIT 100 `, query)
+	if err != nil {
+		return nil, err
+	}
+
+	var words []Word
+	for rows.Next() {
+		var word Word
+		err := rows.Scan(&word.Id, &word.Title, &word.Translation)
+		if err != nil {
+			return nil, err
+		}
+		words = append(words, word)
+	}
+
+	return words, nil
+}
